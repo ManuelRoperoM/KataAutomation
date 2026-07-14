@@ -1,0 +1,21 @@
+{
+  "name": "kata-automatizador-ti",
+  "version": "1.0.0",
+  "description": "Kata técnica para evaluación de Automatizador TI",
+  "scripts": {
+    "test": "playwright test",
+    "test:exercise-1": "playwright test tests/exercise-1/",
+    "test:exercise-2": "playwright test tests/exercise-2/",
+    "test:exercise-3": "playwright test tests/exercise-3/",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.1",
+    "typescript": "5.8.3",
+    "pg": "8.13.1",
+    "@types/pg": "8.11.11"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

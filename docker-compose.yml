@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: tododb
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./app/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U testuser -d tododb"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  app:
+    build: ./app
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: tododb
+      DB_USER: testuser
+      DB_PASSWORD: testpass
+      JWT_SECRET: kata-secret-key
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

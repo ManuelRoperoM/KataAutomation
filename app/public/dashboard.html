@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — TODO App</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #f5f5f5; }
+    .navbar { background: #4f46e5; color: white; padding: 1rem 2rem; display: flex; align-items: center; gap: 2rem; }
+    .navbar a { color: white; text-decoration: none; opacity: 0.85; }
+    .navbar a:hover { opacity: 1; }
+    .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 2rem; }
+    h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+    p { color: #555; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <strong>TODO App</strong>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/todos" data-testid="nav-todos">Mis Tareas</a>
+    <a href="/login" id="logoutLink">Cerrar sesión</a>
+  </nav>
+  <div class="container">
+    <div class="card">
+      <h1 data-testid="welcome-message">Bienvenido/a</h1>
+      <p>Gestiona tus tareas desde la sección <a href="/todos">Mis Tareas</a>.</p>
+    </div>
+  </div>
+  <script>
+    const name = localStorage.getItem('userName');
+    if (name) {
+      document.querySelector('[data-testid="welcome-message"]').textContent = `Bienvenido/a, ${name}`;
+    }
+    document.getElementById('logoutLink').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userName');
+    });
+  </script>
+</body>
+</html>

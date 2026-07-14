@@ -1,0 +1,34 @@
+# IDEs
+.idea/
+.vscode/
+.kiro/
+
+# Node.js
+node_modules/
+dist/
+
+# Python
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Java
+bin/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright
+playwright-report/
+test-results/
+blob-report/
+
+# Environment
+.env
+.env.*
+
+# Documents
+CHANGELOG.md
+

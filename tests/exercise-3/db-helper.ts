@@ -26,8 +26,17 @@ export interface TodoRecord {
  * Must use parameterized queries to prevent SQL injection.
  */
 export async function findTodoByTitle(title: string): Promise<TodoRecord | null> {
-  // Your implementation here
-  throw new Error('Not implemented');
+  const result = await pool.query<TodoRecord>(
+    `
+      SELECT id, title, completed, user_id, created_at
+      FROM todos
+      WHERE title = $1
+      LIMIT 1
+    `,
+    [title]
+  );
+
+  return result.rows[0] ?? null;
 }
 
 /**
@@ -35,8 +44,16 @@ export async function findTodoByTitle(title: string): Promise<TodoRecord | null>
  * Returns the completed status for a given todo ID.
  */
 export async function isTodoCompleted(todoId: number): Promise<boolean> {
-  // Your implementation here
-  throw new Error('Not implemented');
+  const result = await pool.query<{ completed: boolean }>(
+    `
+      SELECT completed
+      FROM todos
+      WHERE id = $1
+    `,
+    [todoId]
+  );
+
+  return result.rows[0]?.completed ?? false;
 }
 
 /**
@@ -45,8 +62,13 @@ export async function isTodoCompleted(todoId: number): Promise<boolean> {
  * Must not throw if the records don't exist.
  */
 export async function cleanupTestTodos(titlePrefix: string): Promise<void> {
-  // Your implementation here
-  throw new Error('Not implemented');
+  await pool.query(
+    `
+      DELETE FROM todos
+      WHERE title LIKE $1
+    `,
+    [`${titlePrefix}%`]
+  );
 }
 
 /**

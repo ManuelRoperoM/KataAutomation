@@ -25,9 +25,10 @@ export class ToDoListPage {
 
     async editTodo(oldTitle: string, newTitle: string): Promise<void> {
 
-        const todo = this.getTodoItem(oldTitle);
-        await todo.locator('label').dblclick();
-        const input = todo.locator('.edit-input');
+        const label = this.page.getByText(oldTitle, { exact: true });
+        await label.dblclick();
+        const input = this.page.locator('.edit-input');
+        await expect(input).toBeVisible();
         await input.fill(newTitle);
         await input.press('Enter');
         await expect(this.getTodoItem(newTitle)).toBeVisible();
@@ -57,7 +58,7 @@ export class ToDoListPage {
     }
 
     async expectTodoNotVisible(title: string): Promise<void> {
-        await expect(this.getTodoItem(title)).toBeVisible();
+        await expect(this.getTodoItem(title)).not.toBeVisible();
     }
 
     async expectTodoCompleted(title: string): Promise<void> {

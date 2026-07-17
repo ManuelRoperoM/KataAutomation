@@ -6,11 +6,11 @@ import { Pool, QueryResult } from 'pg';
  */
 
 const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: Number(process.env.DB_PORT) || 5432,
-  database: process.env.DB_NAME || 'tododb',
-  user: process.env.DB_USER || 'testuser',
-  password: process.env.DB_PASSWORD,
+  host: 'localhost',
+  port: 5430,
+  database: 'tododb',
+  user: 'testuser',
+  password: 'testpass',
 });
 
 export interface TodoRecord {

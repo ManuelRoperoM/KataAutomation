@@ -1,4 +1,5 @@
 import { Pool, QueryResult } from 'pg';
+import 'dotenv/config';
 
 /**
  * Database helper for test setup and teardown.
@@ -6,11 +7,11 @@ import { Pool, QueryResult } from 'pg';
  */
 
 const pool = new Pool({
-  host: 'localhost',
-  port: 5430,
-  database: 'tododb',
-  user: 'testuser',
-  password: 'testpass',
+  host: process.env.DB_HOST || 'localhost',
+  port:  Number(process.env.DB_PORT) || 5430,
+  database: process.env.DB_NAME || 'tododb',
+  user: process.env.DB_USER || 'testuser',
+  password: process.env.DB_PASSWORD,
 });
 
 export interface TodoRecord {
